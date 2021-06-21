@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
   <head>
     <meta charset="utf-8">
-    <title>10까지 숫자 세기</title>
+    <title>폼 예제</title>
   </head>
   <body>
     <p>
