@@ -4,12 +4,25 @@ try {
     include __DIR__ . '/../includes/DatabaseConnection.php';
     include __DIR__ . '/../includes/DatabaseFunctions.php';
 
-    $jokes = allJokes($pdo);
+    $result = findAll($pdo, 'joke');
+    $jokes = [];
+    foreach ($result as $joke) {
+        $author = findById($pdo, 'author', 'id',
+        $joke['authorId']);
+
+        $jokes[] = [
+            'id' => $joke['id'],
+            'joketext' => $joke['joketext'],
+            'jokedata' => $joke['jokedate'],
+            'name' => $author['name'],
+            'email' => $author['email']
+        ];
+    }
 
     
     $title = '유머 글 목록';
 
-    $totalJokes = totalJokes($pdo);
+    $totalJokes = total($pdo, 'joke');
 
     ob_start(); // 버퍼 저장 시작
 
