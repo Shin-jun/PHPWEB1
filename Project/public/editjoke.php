@@ -1,19 +1,21 @@
 <?php
-include __DIR__ . '/../includes/DatabaseConnection.php';
-include __DIR__ . '/../includes/DatabaseFunctions.php';
+try {
+    include __DIR__ . '/../includes/DatabaseConnection.php';
+    include __DIR__ . '/../classes/DatabaseTable.php';
 
-try{
-    if(isset($_POST['joke'])){
+    $jokesTable = new DatabaseTable($pdo, 'joke', 'id');
+
+    if (isset($_POST['joke'])) {
         $joke = $_POST['joke'];
         $joke['jokedate'] = new DateTime();
-        $joke['authorId'] =1;
+        $joke['authorId'] = 1;
 
-        save($pdo, 'joke', 'id', $joke);
+        $jokesTable->save($joke);
 
         header('location: jokes.php');
-    } else{
-        if(isset($_GET['id'])) {
-        $joke = findById($pdo, 'joke', 'id', $_GET['id']);
+    } else {
+        if (isset($_GET['id'])) {
+            $joke = $jokesTable->findById($_GET['id']);
         }
 
         $title = '유머 글 수정';
@@ -24,11 +26,11 @@ try{
 
         $output = ob_get_clean();
     }
-}catch (PDOException $e) {
+} catch (PDOException $e) {
     $title = '오류가 발생했습니다';
 
     $output = '데이터베이스 서버에 접속할 수 없습니다: ' . $e;
     $e->getMessage() . ', 위치: ' .
-    $e->getFile() . ':' . $e->getLine();
+        $e->getFile() . ':' . $e->getLine();
 }
 include __DIR__ . '/../templates/layout.html.php';

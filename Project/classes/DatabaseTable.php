@@ -1,11 +1,15 @@
 <?php
 class DatabaseTable {
 
-    public $pdo;
-    public $table;
-    public $primaryKey;
+    private $pdo;
+    private $table;
+    private $primaryKey;
 
-    
+	public function __construct(PDO $pdo, string $table, string $primaryKey) {
+		$this->pdo = $pdo;
+		$this->table = $table;
+		$this->primaryKey = $primaryKey;
+	}
     
 	// 쿼리 실행
 	private function query($sql, $parameters=[]){
