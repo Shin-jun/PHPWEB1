@@ -1,27 +1,27 @@
 <?php
 
 try {
-    include __DIR__ . '/../includes/DatabaseConnection.php';
-    include __DIR__ . '/../classes/DatabaseTable.php';
+	include __DIR__ . '/../includes/DatabaseConnection.php';
+	include __DIR__ . '/../classes/DatabaseTable.php';
 
-
-    $jokesTable = new DatabaseTable($pdo, 'joke', 'id');
-    $authorTable = new DatabaseTable($pdo, 'author', 'id');
+	$jokesTable = new DatabaseTable($pdo, 'joke', 'id');
+	$authorsTable = new DatabaseTable($pdo, 'author', 'id');
 
     $result = $jokesTable->findAll();
 
-    $jokes = [];
-    foreach ($result as $joke) {
-        $author = $authorTable->findAll($joke['authorId']);
-        $jokes[] = [
-            'id' => $joke['id'],
-            'joketext' => $joke['joketext'],
-            'jokedata' => $joke['jokedate'],
-            'name' => $author['name'],
-            'email' => $author['email']
-        ];
-    }
+	$jokes = [];
+	foreach ($result as $joke) {
+		$author = $authorsTable->findById($joke['authorId']);
 
+		$jokes[] = [
+			'id' => $joke['id'],
+			'joketext' => $joke['joketext'],
+			'jokedate' => $joke['jokedate'],
+			'name' => $author['name'],
+			'email' => $author['email']
+		];
+
+	}
     
     $title = '유머 글 목록';
 

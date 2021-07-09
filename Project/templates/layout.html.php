@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="jokes.css">
+    <link rel="stylesheet" href="/jokes.css">
     <title><?=$title?></title>
   </head>
   <body>
@@ -13,8 +13,8 @@
   <nav>
     <ul>
       <li><a href="index.php">Home</a></li>
-      <li><a href="jokes.php">유머 글 목록</a></li>
-      <li><a href="editjoke.php">유머 글 등록</a></li>
+      <li><a href="/joke/list">유머 글 목록</a></li>
+      <li><a href="/joke/edit">유머 글 등록</a></li>
     </ul>
   </nav>
 
